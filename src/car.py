@@ -1,37 +1,26 @@
-class TooMuchFuelError(Exception):
-    pass
+# calculator.py
 
-class NotEnoughFuelError(Exception):
-    pass
-
-class Car:
+class Calculator:
+    """Простой калькулятор"""
     
-    def __init__(self, model: str, fuel_capacity: float) -> None:
-        self.model = model
-        self.max_fuel_capacity = fuel_capacity
-        self.fuel_in_tank = 0
+    def add(self, a: float, b: float) -> float:
+        """Сложение"""
+        return a + b
     
-    def get_current_fuel_level(self) -> float:
-        return self.fuel_in_tank
+    def subtract(self, a: float, b: float) -> float:
+        """Вычитание"""
+        return a - b
     
-    def refuel_car(self, fuel_quantity: float):
-        if fuel_quantity < 0:
-            raise ValueError("Количество топлива не может быть отрицательным")
-        
-        if self.fuel_in_tank + fuel_quantity > self.max_fuel_capacity:
-            raise TooMuchFuelError("Вы пытаетесь залить слишком много бензина!")
-        
-        self.fuel_in_tank += fuel_quantity
+    def multiply(self, a: float, b: float) -> float:
+        """Умножение"""
+        return a * b
     
-    def drive(self, distance_km: float):
-        if distance_km < 0:
-            raise ValueError("Дистанция не может быть отрицательной")
-        
-        fuel_consumption_per_100km = 8
-        fuel_burned = fuel_consumption_per_100km * (distance_km / 100)
-        
-        if self.fuel_in_tank < fuel_burned:
-            raise NotEnoughFuelError("Не доедем жёж...")
-        
-        self.fuel_in_tank -= fuel_burned
-        return self.get_current_fuel_level()
+    def divide(self, a: float, b: float) -> float:
+        """Деление"""
+        if b == 0:
+            raise ValueError("Деление на ноль невозможно")
+        return a / b
+    
+    def power(self, a: float, exponent: float) -> float:
+        """Возведение в степень"""
+        return a ** exponent

@@ -1,53 +1,38 @@
+# test_calculator.py
 import unittest
-from car import Car, TooMuchFuelError, NotEnoughFuelError
+from calculator import Calculator
 
-class TestCar(unittest.TestCase):
+class TestCalculator(unittest.TestCase):
     
     def setUp(self):
-        self.car = Car("TestModel", 80)
+        self.calc = Calculator()
     
-    def test_empty_on_start(self):
-        self.assertEqual(self.car.get_current_fuel_level(), 0)
+    def test_add(self):
+        self.assertEqual(self.calc.add(2, 3), 5)
+        self.assertEqual(self.calc.add(-1, 1), 0)
+        self.assertEqual(self.calc.add(0, 0), 0)
     
-    def test_refuel_30(self):
-        self.car.refuel_car(30)
-        self.assertEqual(self.car.get_current_fuel_level(), 30)
+    def test_subtract(self):
+        self.assertEqual(self.calc.subtract(5, 3), 2)
+        self.assertEqual(self.calc.subtract(3, 5), -2)
     
-    def test_refuel_50(self):
-        self.car.refuel_car(50)
-        self.assertEqual(self.car.get_current_fuel_level(), 50)
+    def test_multiply(self):
+        self.assertEqual(self.calc.multiply(2, 3), 6)
+        self.assertEqual(self.calc.multiply(-2, 3), -6)
+        self.assertEqual(self.calc.multiply(0, 5), 0)
     
-    def test_refuel_negative(self):
+    def test_divide(self):
+        self.assertEqual(self.calc.divide(6, 3), 2)
+        self.assertEqual(self.calc.divide(5, 2), 2.5)
+    
+    def test_divide_by_zero(self):
         with self.assertRaises(ValueError):
-            self.car.refuel_car(-10)
+            self.calc.divide(5, 0)
     
-    def test_refuel_too_much(self):
-        with self.assertRaises(TooMuchFuelError):
-            self.car.refuel_car(100)
-    
-    def test_drive_with_enough_fuel(self):
-        self.car.refuel_car(40)
-        remaining_fuel = self.car.drive(200)
-        expected_fuel = 40 - 8 * (200 / 100)
-        self.assertEqual(remaining_fuel, expected_fuel)
-    
-    def test_drive_without_enough_fuel(self):
-        self.car.refuel_car(10)
-        with self.assertRaises(NotEnoughFuelError):
-            self.car.drive(200)
-    
-    def test_drive_negative_distance(self):
-        with self.assertRaises(ValueError):
-            self.car.drive(-100)
-    
-    def test_multiple_refuels(self):
-        self.car.refuel_car(30)
-        self.car.refuel_car(20)
-        self.assertEqual(self.car.get_current_fuel_level(), 50)
-    
-    def test_drive_and_refuel(self):
-        self.car.refuel_car(40)
-        self.car.drive(100)
-        remaining = self.car.get_current_fuel_level()
-        self.car.refuel_car(20)
-        self.assertEqual(self.car.get_current_fuel_level(), remaining + 20)
+    def test_power(self):
+        self.assertEqual(self.calc.power(2, 3), 8)
+        self.assertEqual(self.calc.power(5, 0), 1)
+        self.assertEqual(self.calc.power(4, 0.5), 2)
+
+if __name__ == '__main__':
+    unittest.main()
