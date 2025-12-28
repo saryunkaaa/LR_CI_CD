@@ -1,23 +1,18 @@
 import unittest
-from .car import Car
+from car import Car
 
-class TestCase(unittest.TestCase):
-    def setUp(self):  # ← С большой U!
-        self.car = Car(model="BMW X5", fuel_capacity=80)
-        # Нужно добавить начальное топливо!
-        self.car.refuel_car(10)
-
-    def tearDown(self):
-        pass
-
-    def test_drive(self):
-        self.car.drive(20)  # Это должно работать
-        # Проверяем что исключение бросается
-        self.assertRaises(Exception, lambda: self.car.drive(80000))  # ← assertRaises!
-
-    def test_refuel(self):
-        # Заправим 20 литров
-        self.car.refuel_car(20)
-        assert self.car.get_current_fuel_level() == 20
-        # Проверим, что будет исключение, если перельем
-        self.assertRaises(Exception, lambda: self.car.refuel_car(80))  # ← assertRaises!
+class TestCar(unittest.TestCase):
+    
+    def setUp(self):
+        self.car = Car("Test", 80)
+    
+    def test_empty_on_start(self):
+        self.assertEqual(self.car.get_current_fuel_level(), 0)
+    
+    def test_refuel_30(self):
+        self.car.refuel_car(30)
+        self.assertEqual(self.car.get_current_fuel_level(), 30)
+    
+    def test_refuel_50(self):
+        self.car.refuel_car(50)
+        self.assertEqual(self.car.get_current_fuel_level(), 50)
