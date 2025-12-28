@@ -1,26 +1,27 @@
-# calculator.py
-
-class Calculator:
-    """Простой калькулятор"""
+class Car:
+    def __init__(self, brand: str, max_fuel: float):
+        self.brand = brand
+        self.max_fuel = max_fuel
+        self.current_fuel = 0.0
     
-    def add(self, a: float, b: float) -> float:
-        """Сложение"""
-        return a + b
+    def refuel(self, amount: float):
+        if amount < 0:
+            raise ValueError("Количество топлива не может быть отрицательным")
+        
+        if self.current_fuel + amount > self.max_fuel:
+            raise ValueError("Слишком много топлива")
+        
+        self.current_fuel += amount
     
-    def subtract(self, a: float, b: float) -> float:
-        """Вычитание"""
-        return a - b
+    def drive(self, distance: float):
+        fuel_per_km = 0.08  # 8 литров на 100 км
+        fuel_needed = distance * fuel_per_km
+        
+        if fuel_needed > self.current_fuel:
+            raise ValueError("Недостаточно топлива")
+        
+        self.current_fuel -= fuel_needed
+        return f"Проехали {distance} км. Осталось топлива: {self.current_fuel:.1f} л"
     
-    def multiply(self, a: float, b: float) -> float:
-        """Умножение"""
-        return a * b
-    
-    def divide(self, a: float, b: float) -> float:
-        """Деление"""
-        if b == 0:
-            raise ValueError("Деление на ноль невозможно")
-        return a / b
-    
-    def power(self, a: float, exponent: float) -> float:
-        """Возведение в степень"""
-        return a ** exponent
+    def get_fuel_info(self):
+        return f"{self.brand}: {self.current_fuel:.1f}/{self.max_fuel} л"
