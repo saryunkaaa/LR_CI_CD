@@ -20,15 +20,15 @@ class Car:
 
     def drive(self, distance_km: float) -> float:
         """Проехать указанное расстояние в километрах."""
-        if distance_km <= 0:
-            raise ValueError("Расстояние должно быть положительным")
+        if distance_km < 0:  # Исправлено: < вместо <=
+            raise ValueError("Расстояние должно быть неотрицательным")
         
         # Расход 8 литров на 100 км
         fuel_consumption_per_km = 8.0 / 100.0
         fuel_needed = fuel_consumption_per_km * distance_km
         
         # Исправляем проблему с плавающей точкой
-        if self._fuel_in_tank < fuel_needed - 1e-10:  # небольшая погрешность
+        if self._fuel_in_tank < fuel_needed - 1e-10:
             raise ValueError(f"Недостаточно топлива! Нужно {fuel_needed:.2f} л, "
                            f"а в баке {self._fuel_in_tank:.2f} л")
         
