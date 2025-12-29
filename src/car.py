@@ -1,4 +1,7 @@
-class Car:
+
+
+
+dsdclass Car:
     """Класс, представляющий автомобиль с топливным баком."""
 
     def __init__(self, model: str, fuel_capacity: float) -> None:
