@@ -1,5 +1,4 @@
-
-   class Car:
+class Car:
     """Класс, представляющий автомобиль с топливным баком."""
 
     def __init__(self, model: str, fuel_capacity: float) -> None:
@@ -27,7 +26,7 @@
 
         if self._fuel_in_tank + fuel_quantity > self._max_fuel_capacity:
             available = self._max_fuel_capacity - self._fuel_in_tank
-            msg = f"Переполнение бака! Максимум можно долить: {available:.2f} л"
+            msg = f"Переполнение бака! Максимум можно долить: {available:.2f} лkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
             raise ValueError(msg)
 
         self._fuel_in_tank += fuel_quantity
