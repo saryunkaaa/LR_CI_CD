@@ -1,4 +1,5 @@
 import unittest
+
 from car import Car
 
 
@@ -14,7 +15,7 @@ class TestCar(unittest.TestCase):
         """Тест корректной заправки."""
         self.car.refuel_car(20.0)
         self.assertAlmostEqual(self.car.get_current_fuel_level(), 20.0, places=2)
-        
+
         # Доливаем ещё
         self.car.refuel_car(30.0)
         self.assertAlmostEqual(self.car.get_current_fuel_level(), 50.0, places=2)
@@ -35,11 +36,11 @@ class TestCar(unittest.TestCase):
         """Тест корректной поездки."""
         # Сначала заправляем
         self.car.refuel_car(40.0)
-        
+
         # Едем 100 км (потратится 8 литров)
         remaining_fuel = self.car.drive(100.0)
         self.assertAlmostEqual(remaining_fuel, 32.0, places=2)
-        
+
         # Едем ещё 200 км (потратится 16 литров)
         remaining_fuel = self.car.drive(200.0)
         self.assertAlmostEqual(remaining_fuel, 16.0, places=2)
@@ -47,7 +48,7 @@ class TestCar(unittest.TestCase):
     def test_drive_insufficient_fuel(self):
         """Тест поездки без достаточного количества топлива."""
         self.car.refuel_car(10.0)  # Заправляем только 10 литров
-        
+
         # Пытаемся проехать 200 км (нужно 16 литров)
         with self.assertRaises(ValueError) as context:
             self.car.drive(200.0)
@@ -68,19 +69,19 @@ class TestCar(unittest.TestCase):
         """Полный сценарий: заправка -> поездка -> заправка."""
         # Начальное состояние
         self.assertEqual(self.car.get_current_fuel_level(), 0.0)
-        
+
         # Заправка
         self.car.refuel_car(50.0)
         self.assertAlmostEqual(self.car.get_current_fuel_level(), 50.0, places=2)
-        
+
         # Поездка
         remaining = self.car.drive(300.0)  # 300 км * 0.08 = 24 литра
         self.assertAlmostEqual(remaining, 26.0, places=2)  # 50 - 24 = 26
-        
+
         # Ещё одна заправка
         self.car.refuel_car(20.0)
         self.assertAlmostEqual(self.car.get_current_fuel_level(), 46.0, places=2)
-        
+
         # Последняя поездка
         remaining = self.car.drive(500.0)  # 500 км * 0.08 = 40 литров
         self.assertAlmostEqual(remaining, 6.0, places=2)  # 46 - 40 = 6
