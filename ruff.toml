@@ -56,12 +56,13 @@ ignore = [
     "D103", "D100","D104", "D101", "D102", "D107",
     "ANN201",
     "PTH119",
-    "E501",
+    "E501", "E902",
     "PERF401",
     "B019", "UP033", # lru cahce
     "TD003", "TD002", # link to issue and author
     "ANN202", "ANN001", "ANN204", "ANN002", "ANN003",
-    "ERA001"
+    "ERA001",
+    "PT009", "PT027"
 ] #  --ignore T201 --ignore TD002 --ignore FIX002 --ignore TD003
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
